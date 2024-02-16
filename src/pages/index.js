@@ -77,13 +77,13 @@ const Home = () => {
       x: {
         type: 'category',
         ticks: {
-          color: 'gray', 
+          color: 'white',
         },
       },
       y: {
         beginAtZero: true,
         ticks: {
-          color: 'gray',
+          color: 'white',
         },
       },
     },
@@ -93,6 +93,7 @@ const Home = () => {
       },
     },
   };
+  
 
   
   const navigateToTotalTodosPage = () => {

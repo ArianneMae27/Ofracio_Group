@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
 import { Paper, Button, Collapse, Card, CardContent, Typography, Grid } from '@mui/material';
+import { Visibility } from '@mui/icons-material';
 
 const TotalTodosPage = () => {
   const [todosPerUser, setTodosPerUser] = useState([]);
@@ -60,32 +61,38 @@ const TotalTodosPage = () => {
             <Grid item xs={12} sm={6} md={4} key={item.userId}>
               <Card
                 style={{
-                  backgroundColor: 'grey',
+                  backgroundColor: 'black',
                   borderRadius: '10px',
                   padding: '5px',
                   margin: '5px',
                   height: 'fit-content',
                   transition: 'transform 0.3s',
+                  border: '2px solid #0F6BAE',
                   '&:hover': {
                     transform: 'scale(1.05)',
                   }
                 }}
               >
                 <CardContent style={{ textAlign: 'center' }}>
-                  <Typography style={{ color: 'white' }} variant="h6" component="h2">
+                  <Typography style={{ color: '#83B8FF' }} variant="h6" component="h2">
                     User ID: {item.userId}
                   </Typography>
-                  <Typography style={{ color: 'white' }} gutterBottom>
+                  <Typography style={{ color: '#C6CDFF' }} gutterBottom>
                     User Name: {item.name}
                   </Typography>
-                  <Typography style={{ color: 'white' }} gutterBottom>
+                  <Typography style={{ color: '#C6CDFF' }} gutterBottom>
                     Total TODOS: {item.todos}
                   </Typography>
-                  <Button onClick={() => handleToggleTodos(item.userId)} variant="outlined" style={{ color: 'white', backgroundColor: 'black' }}>
+                  <Button
+                    startIcon={<Visibility />} 
+                    onClick={() => handleToggleTodos(item.userId)}
+                    variant="outlined"
+                    style={{ color: 'white', backgroundColor: 'black', '&:hover': { backgroundColor: '#0F6BAE' } }} 
+                  >
                     {selectedUserId === item.userId ? 'Hide Todos' : 'View Todos'}
                   </Button>
                   <Collapse in={selectedUserId === item.userId}>
-                    <div>
+                    <div style={{ color: '#ADD8E6' }}>
                       <h4>Todos for {item.name}</h4>
                       <ul>
                         {item.todosData.map(todo => (

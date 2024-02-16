@@ -38,27 +38,54 @@ const Users = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: 'black', color: 'white', minHeight: '100vh', padding: '20px' }}>
       <Navbar />
-      <h1>Users Page</h1>
       <Container>
         <Row>
           {users.map((user) => (
             <Col key={user.id} xs={12} sm={6} md={4} style={{ marginBottom: '20px' }}>
-              <Card>
-                {/* Replace the Card.Img with the Image component */}
+              <Card
+                style={{
+                  border: `2px solid #0F6BAE`,
+                  backgroundColor: 'black',
+                  color: 'white',
+                  borderRadius: '10px',
+                  padding: '10px',
+                  textAlign: 'center',
+                  transition: 'background-color 0.3s',
+                }}
+                className="user-card"
+              >
                 <Image
                   src={`https://i.pravatar.cc/150?u=${user.id}`}
                   alt={user.name}
                   roundedCircle
                   fluid
+                  style={{ width: '100px', height: '100px', margin: '0 auto' }} 
                 />
                 <Card.Body>
-                  <Card.Title>{user.name}</Card.Title>
-                  <Card.Text>{user.email}</Card.Text>
-                  <Card.Text>{user.username}</Card.Text>
-                  <Button onClick={() => fetchUserTodos(user.id)} variant="primary">
-                    Show Todos
+                  <Card.Title style={{ color: '#83B8FF', marginBottom: '10px' }}>{user.name}</Card.Title>
+                  <Card.Text style={{ color: '#C6CDFF', marginBottom: '10px' }}>{user.email}</Card.Text>
+                  <Card.Text style={{ color: '#C6CDFF', marginBottom: '20px' }}>{user.username}</Card.Text>
+                  <Button
+                    onClick={() => fetchUserTodos(user.id)}
+                    variant="outline-light"
+                    style={{
+                      border: '2px solid #0F6BAE',
+                      transition: 'background-color 0.3s',
+                      color: 'white',
+                    }}
+                    className="todos-button"
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = '#0F6BAE';
+                      e.target.style.color = 'white'; 
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = 'transparent';
+                      e.target.style.color = 'white';
+                    }}
+                  >
+                    View Todos
                   </Button>
                 </Card.Body>
               </Card>
@@ -69,9 +96,9 @@ const Users = () => {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Todos</Modal.Title>
+          <Modal.Title style={{ color: '#0F6BAE' }}>Todos</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ backgroundColor: 'black', color: 'white' }}>
           <ul>
             {userTodos.map((todo) => (
               <li key={todo.id}>{todo.title}</li>
@@ -79,7 +106,7 @@ const Users = () => {
           </ul>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button variant="primary" onClick={handleCloseModal} style={{ borderColor: '#0F6BAE' }}>
             Close
           </Button>
         </Modal.Footer>

@@ -14,6 +14,7 @@ import {
   DialogActions,
   Avatar,
 } from '@mui/material';
+import CommentIcon from '@mui/icons-material/Comment';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -51,11 +52,9 @@ const Posts = () => {
 
   const handleToggleComments = async (postId) => {
     if (selectedPostId === postId) {
-      // If the same post is clicked again, hide the comments
       setSelectedPostId(null);
       setComments([]);
     } else {
-      // Fetch and display comments for the selected post
       setSelectedPostId(postId);
       await fetchComments(postId);
       setDialogOpen(true);
@@ -67,26 +66,30 @@ const Posts = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: 'black', minHeight: '100vh', padding: '20px' }}>
       <Navbar />
-      <h1>Posts Page</h1>
       {loading && <CircularProgress style={{ margin: '20px' }} />}
-      {error && <Typography variant="h6" color="error">{error}</Typography>}
+      {error && <Typography variant="h6" color="error" style={{ color: 'white' }}>{error}</Typography>}
       {!loading && !error && (
         <Grid container spacing={2}>
           {posts.map((post) => (
             <Grid item key={post.id} xs={12} sm={6} md={4} lg={3}>
-              <Card style={{ height: '100%' }}>
+              <Card style={{ height: '100%', backgroundColor: 'black', color: 'white', border: '2px solid #0F6BAE' }}>
                 <CardContent style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                   <Avatar src={`https://i.pravatar.cc/40?u=${post.id}`} alt="Avatar" style={{ marginRight: '10px' }} />
-                  <Typography variant="h6" component="div">
+                  <Typography variant="h6" component="div" style={{ color: 'white' }}>
                     {post.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <Typography variant="body2" color="text.secondary" style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', color: 'white' }}>
                     {post.body}
-                  </Typography>
-                  <Button onClick={() => handleToggleComments(post.id)} variant="outlined">
-                    Show Comments
+                  </Typography> 
+                  <Button
+                    onClick={() => handleToggleComments(post.id)}
+                    variant="outlined"
+                    style={{ color: 'white', borderColor: 'white' }}
+                    startIcon={<CommentIcon />}
+                  >
+                    View Comments
                   </Button>
                 </CardContent>
               </Card>
@@ -97,13 +100,12 @@ const Posts = () => {
 
       {isDialogOpen && (
         <Dialog open={isDialogOpen} onClose={handleCloseDialog} fullWidth maxWidth="md">
-          <DialogTitle>Comments</DialogTitle>
-          <DialogContent>
+          <DialogTitle style={{ backgroundColor: '#248BD6', color: 'white' }}>Comments</DialogTitle>
+          <DialogContent style={{ backgroundColor: 'black', color: 'white' }}>
             {comments.map((comment) => (
-              <div key={comment.id}>
-                <Typography variant="subtitle2">{comment.name}</Typography>
-                <Typography variant="body1">{comment.body}</Typography>
-                <hr style={{ margin: '10px 0' }} />
+              <div key={comment.id} style={{ borderBottom: '2px solid #83B8FF', marginBottom: '10px', paddingBottom: '10px' }}>
+                <Typography variant="subtitle2" style={{ color: 'white' }}>{comment.name}</Typography>
+                <Typography variant="body1" style={{ color: 'white' }}>{comment.body}</Typography>
               </div>
             ))}
           </DialogContent>
